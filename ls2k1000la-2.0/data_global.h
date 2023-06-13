@@ -27,7 +27,10 @@
 #include <netinet/in.h> 
 #include <netinet/tcp.h> 
 #include <netinet/ip.h>
+#include <arpa/inet.h>
+#include <time.h>	//get unixtime
 #include "cJSON.h"
+#include "linklist.h"
 
 #define   LED_DEV      "/dev/gpioled"  //led灯的设备名
 #define	  BEEP_DEV   "/dev/beep"  //beep蜂鸣器的设备名
@@ -35,6 +38,7 @@
 #define SERVER_PORT 8888
 
 unsigned char  cmd_beep;  //蜂鸣器命令标志位
+unsigned char  cmd_online;//打印在线信息 
 
 struct Sensors_node_data{
     float temperature;   //节点温度数据
@@ -46,7 +50,9 @@ extern void *pthread_cmd (void *arg);    //接受云端指令并通知相应线�
 extern void *pthread_beep (void *arg);   //beep线程
 extern void *pthread_server (void *arg);   //TCP服务器线程，接受来自客户端的连接请求
 extern void *pthread_getdata (void *arg);  //获取来自客户端的数据
+extern void *pthread_online (void *arg);  //记录在线节点的线程
 
+extern int set_tcp_keepAlive(int fd, int start, int interval, int count);
 extern int send_cmd(long type,unsigned char data);
 /*定义消息队列结构体*/
 /*消息队列必须以一个long int长整形开始，接受者以此确定消息的类型*/

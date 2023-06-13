@@ -1,4 +1,4 @@
-CROSS_COMPILE=arm-linux-gnueabihf-
+CROSS_COMPILE=loongarch64-linux-gnu-
 CC=$(CROSS_COMPILE)gcc
 CFLAGS= -c -g
 #LDFLAGS= -lpthread -L ./lib -lsqlite3
@@ -6,6 +6,7 @@ LDFLAGS= -lpthread -lm
 
 OBJS=main.o  data_global.o pthread_aliyun.o pthread_cmd.o  cJSON.o\
 			 pthread_server.o   pthread_beep.o  pthread_getdata.o \
+			 TCP_HeartBeat.o  linklist.o  pthread_online.o\
 
 
 monitor_obj :$(OBJS)

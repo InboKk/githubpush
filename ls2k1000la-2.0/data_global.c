@@ -3,6 +3,7 @@
 /*定义线程同步互斥操作所需要的互斥锁和条件变量*/
 pthread_mutex_t mutex_beep;
 pthread_mutex_t mutex_getdata;
+pthread_mutex_t mutex_online;
 
 pthread_cond_t cond_beep;
 
@@ -13,6 +14,8 @@ int msgid;   //进程间通信IPC：消息队列ID：用于阿里云下发的指
 key_t shm_key;   //共享内存的key值，每个key独一无二，进程通信双方的key值必须一样
 key_t sem_key;   //信号量key值
 key_t msg_key;   //消息队列key值
+
+linklist ListHeader;  //用来保存无线传感结点在线信息的链表
 
 struct Sensors_node_data  env_data;   //传感器节点数据结构体
 

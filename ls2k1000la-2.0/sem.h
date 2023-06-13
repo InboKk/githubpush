@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include "data_global.h"
 
 /*******************************************************/
 /*信号量操作函数*/

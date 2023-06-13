@@ -43,6 +43,7 @@ void *pthread_server(void *arg)
           if(clientsocket != -1)
           {
               printf("Get connect from client %d : %s\n", clientsocket, inet_ntoa(client_addr.sin_addr));
+              
               /*为每一个建立连接的节点分配一个线程，用来接收节点数据*/
               pthread_mutex_lock(&mutex_getdata);//上锁
               pthread_create(&threadid, NULL, pthread_getdata, (void *)&clientsocket); 

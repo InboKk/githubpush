@@ -3,6 +3,7 @@
 extern pthread_mutex_t mutex_beep;
 extern pthread_cond_t cond_beep;
 extern unsigned char  cmd_beep; 
+extern linklist ListHeader;  //用来保存无线传感结点在线信息的链表
 /*通过消息队列接收来自阿里云下发的消息，并对消息进行解析，根据消息类型执行不同的指令*/
 extern int msgid;
 extern key_t msg_key;
@@ -80,7 +81,9 @@ void *pthread_cmd(void *arg)
                 pthread_cond_signal(&cond_beep);//条件变量通知beep线程
                 break;
             case 3:
-                printf("SET INTERVAL\n\r");
+                printf("WireLessSensors Online:\n\r");
+                //TraverseLinknode(ListHeader);//打印在线信息
+                cmd_online = msgbuf.data[0];
                 break;   
             default: 
                 break;

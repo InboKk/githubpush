@@ -63,14 +63,13 @@ void *pthread_aliyun(void *arg)
     {
         sem_p(semid,0);  //写数据，先进行P操作
         //通过结构体获取实际数据进行上传
-        /*shm_buf->env_data.temperature = env_data.temperature*/
-        analog_data(&shm_buf->env_data);  //填充模拟数据
+        shm_buf->env_data.temperature = env_data.temperature;
+        shm_buf->env_data.humidity = env_data.humidity;
+        //analog_data(&shm_buf->env_data);  //填充模拟数据
        // printf("%.1f\r\n",shm_buf->env_data.temperature);
         sleep(1);
         sem_v(semid,0);  //数据填充结束，执行V操作
     } 
-
-
 }
 
 int analog_data(struct Sensors_node_data *data)
